@@ -1,0 +1,53 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Large Files & Media
+*.mp4
+*.MOV
+*.avi
+*.mkv
+*.zip
+*.tar.gz
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Static App specific
+frontend/node_modules/
+frontend/dist/
