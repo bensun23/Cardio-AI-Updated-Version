@@ -1,0 +1,25 @@
+[build]
+  base = "frontend"
+  command = "npm install && npm run build"
+  publish = "dist"
+
+# The Python (FastAPI) backend in app.py cannot run on Netlify. Host it elsewhere
+# (e.g. Render, Railway, Fly.io) and uncomment these rules, replacing the URL,
+# so the frontend's /predict and /generate-report calls reach it.
+#
+# [[redirects]]
+#   from = "/predict"
+#   to = "https://YOUR-BACKEND-URL/predict"
+#   status = 200
+#   force = true
+#
+# [[redirects]]
+#   from = "/generate-report"
+#   to = "https://YOUR-BACKEND-URL/generate-report"
+#   status = 200
+#   force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
