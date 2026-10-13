@@ -1,0 +1,7 @@
+backend:
+cd C:\Users\gunda\OneDrive\Desktop\Cardio-AI-Enhanced-version-of-Heart-Disease-Predictor--main\Cardio-AI-Enhanced-version-of-Heart-Disease-Predictor--main
+python app.py
+
+frontend:
+cd C:\Users\gunda\OneDrive\Desktop\Cardio-AI-Enhanced-version-of-Heart-Disease-Predictor--main\Cardio-AI-Enhanced-version-of-Heart-Disease-Predictor--main\frontend
+npm run dev

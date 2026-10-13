@@ -29,7 +29,7 @@ function App() {
   const [backendError, setBackendError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Dark Mode with persistence
+  // Dark Mode with persistence in localStorage
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('theme');
     if (saved) return saved === 'dark';
@@ -64,7 +64,7 @@ function App() {
         body: JSON.stringify(dataToSubmit)
       });
 
-      // Wait for both the real API call and the minimum 1.5s display time
+      // Wait for both real API response and 1.5s minimum display time
       const [response] = await Promise.all([fetchPromise, minDisplayTime]);
 
       const result = await response.json();
@@ -126,20 +126,20 @@ function App() {
   return (
     <div className="min-h-screen relative overflow-x-hidden font-sans transition-colors duration-500">
       
-      {/* Background Liquid Red Blobs */}
-      <div className="fixed top-[-10%] left-[-5%] w-[32rem] h-[32rem] rounded-full bg-cardio-crimson/15 dark:bg-cardio-maroon/25 blur-3xl pointer-events-none animate-blob-float"></div>
+      {/* Background Slow-Moving Blurred Blue & Violet Liquid Blobs */}
+      <div className="fixed top-[-10%] left-[-5%] w-[34rem] h-[34rem] rounded-full bg-primary/15 dark:bg-primary/20 blur-3xl pointer-events-none animate-blob-float"></div>
       <div
-        className="fixed bottom-[-10%] right-[-5%] w-[36rem] h-[36rem] rounded-full bg-cardio-maroon/15 dark:bg-cardio-crimson/20 blur-3xl pointer-events-none animate-blob-float"
+        className="fixed bottom-[-10%] right-[-5%] w-[38rem] h-[38rem] rounded-full bg-secondary/15 dark:bg-secondary/20 blur-3xl pointer-events-none animate-blob-float"
         style={{ animationDelay: '4s' }}
       ></div>
       <div
-        className="fixed top-[45%] right-[10%] w-64 h-64 rounded-full bg-cardio-red/10 dark:bg-cardio-red/15 blur-2xl pointer-events-none animate-blob-float"
+        className="fixed top-[40%] right-[10%] w-72 h-72 rounded-full bg-primary-light/10 dark:bg-primary-light/15 blur-2xl pointer-events-none animate-blob-float"
         style={{ animationDelay: '8s' }}
       ></div>
 
       {/* Subtle Noise Texture */}
       <div
-        className="fixed inset-0 opacity-[0.025] dark:opacity-[0.04] pointer-events-none mix-blend-overlay"
+        className="fixed inset-0 opacity-[0.02] dark:opacity-[0.035] pointer-events-none mix-blend-overlay"
         style={{
           backgroundImage:
             'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")'
@@ -151,12 +151,12 @@ function App() {
         <button
           type="button"
           onClick={() => setStep('landing')}
-          className="flex items-center gap-2.5 text-cardio-maroon dark:text-red-400 font-black tracking-tight group focus:outline-none"
+          className="flex items-center gap-2.5 text-primary dark:text-primary-light font-black tracking-tight group focus:outline-none"
         >
-          <div className="w-10 h-10 rounded-2xl bg-cardio-crimson text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center shadow-glow-primary group-hover:scale-105 transition-transform">
             <Activity size={22} className="animate-pulse" />
           </div>
-          <span className="text-xl md:text-2xl bg-clip-text text-transparent bg-gradient-to-r from-cardio-maroon via-cardio-crimson to-cardio-red">
+          <span className="text-xl md:text-2xl bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-primary">
             CardioAI
           </span>
         </button>

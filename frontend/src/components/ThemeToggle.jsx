@@ -7,12 +7,12 @@ export default function ThemeToggle({ darkMode, setDarkMode }) {
       type="button"
       onClick={() => setDarkMode(!darkMode)}
       aria-label={darkMode ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-      className="p-3 rounded-2xl neu-btn text-cardio-crimson dark:text-red-400 hover:text-cardio-red transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-cardio-crimson/50"
+      className="p-3 rounded-2xl neu-btn text-primary hover:text-secondary transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary/50"
     >
       {darkMode ? (
-        <Sun size={20} className="text-amber-400 animate-pulse" />
+        <Sun size={20} className="text-risk-moderate animate-pulse" />
       ) : (
-        <Moon size={20} className="text-cardio-maroon" />
+        <Moon size={20} className="text-primary" />
       )}
     </button>
   );

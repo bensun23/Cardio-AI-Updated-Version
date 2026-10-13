@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RefreshCw, Download, ShieldCheck, AlertTriangle, Activity, User, Calendar, Check, Loader2 } from 'lucide-react';
+import { RefreshCw, Download, ShieldCheck, AlertTriangle, Activity, User, Check, Loader2 } from 'lucide-react';
 import RiskGauge from './RiskGauge';
 import FeatureChart from './FeatureChart';
 
@@ -36,24 +36,27 @@ export default function ResultScreen({
         title: 'Elevated Warning',
         text: 'The model identified physiological and hemodynamic patterns consistent with cardiovascular disease. Immediate clinical consultation with a board-certified cardiologist is strongly recommended.',
         icon: <Activity size={26} className="text-white" />,
-        color: '#FF0000',
-        badgeBg: 'bg-cardio-red/10 border-cardio-red/30 text-cardio-red'
+        color: '#FF5D8F',
+        glowClass: 'shadow-glow-high',
+        badgeBg: 'bg-risk-high/10 border-risk-high/30 text-risk-high'
       };
     } else if (risk_level === 'Moderate') {
       return {
         title: 'Moderate Notice',
         text: 'Certain cardiovascular markers warrant close attention. We recommend discussing these findings with your primary physician to evaluate preventive adjustments.',
         icon: <AlertTriangle size={26} className="text-white" />,
-        color: '#D97706',
-        badgeBg: 'bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400'
+        color: '#F5B83D',
+        glowClass: 'shadow-glow-mod',
+        badgeBg: 'bg-risk-moderate/10 border-risk-moderate/30 text-risk-moderate'
       };
     } else {
       return {
         title: 'Optimal Range',
         text: 'The submitted metrics indicate an optimal cardiovascular profile with low statistical indicators of coronary artery disease. Maintain healthy lifestyle practices.',
         icon: <ShieldCheck size={26} className="text-white" />,
-        color: '#059669',
-        badgeBg: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
+        color: '#22C7A9',
+        glowClass: 'shadow-glow-low',
+        badgeBg: 'bg-risk-low/10 border-risk-low/30 text-risk-low'
       };
     }
   };
@@ -66,20 +69,20 @@ export default function ResultScreen({
       {/* Patient Header Summary Bar */}
       <div className="liquid-glass liquid-glass-specular rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-cardio-crimson dark:text-red-400 uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-bold text-primary dark:text-primary-light uppercase tracking-wider mb-1">
             <User size={15} />
             <span>Diagnostic Report For</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-text-mainLight dark:text-text-mainDark tracking-tight">
             {patientName}
           </h2>
-          <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-2">
+          <div className="flex flex-wrap items-center gap-3 text-xs text-text-mutedLight dark:text-text-mutedDark mt-2">
             <span>Age: {patient.age} yrs</span>
-            <span>*</span>
+            <span>•</span>
             <span>Sex: {patient.sex === 1 ? 'Male' : 'Female'}</span>
-            <span>*</span>
+            <span>•</span>
             <span>Resting BP: {patient.trestbps} mmHg</span>
-            <span>*</span>
+            <span>•</span>
             <span>Cholesterol: {patient.chol} mg/dl</span>
           </div>
         </div>
@@ -98,10 +101,10 @@ export default function ResultScreen({
           <RiskGauge probability={probability} riskLevel={risk_level} />
         </div>
 
-        {/* Status Breakdown & Actions (7 cols) */}
-        <div className="lg:col-span-7 liquid-glass liquid-glass-specular rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-lg">
+        {/* Status Breakdown & Actions (7 cols) - Slides up with risk-colored glow */}
+        <div className={`lg:col-span-7 liquid-glass liquid-glass-specular rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-lg transition-all ${badge.glowClass}`}>
           <div>
-            <div className="flex items-center gap-4 mb-5 pb-5 border-b border-cardio-maroon/10 dark:border-white/10">
+            <div className="flex items-center gap-4 mb-5 pb-5 border-b border-primary/15 dark:border-white/10">
               <div
                 className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg"
                 style={{ backgroundColor: badge.color }}
@@ -109,29 +112,29 @@ export default function ResultScreen({
                 {badge.icon}
               </div>
               <div>
-                <span className="text-xs uppercase font-bold text-slate-400 tracking-wider">
+                <span className="text-xs uppercase font-bold text-text-mutedLight dark:text-text-mutedDark tracking-wider">
                   Model Interpretation
                 </span>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100">
+                <h3 className="text-xl sm:text-2xl font-black text-text-mainLight dark:text-text-mainDark">
                   {badge.title}
                 </h3>
               </div>
             </div>
 
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+            <p className="text-sm sm:text-base text-text-mutedLight dark:text-text-mutedDark leading-relaxed mb-6">
               {badge.text}
             </p>
 
-            <div className="p-4 rounded-2xl neu-surface text-xs text-slate-500 dark:text-slate-400 space-y-1">
+            <div className="p-4 rounded-2xl neu-surface text-xs text-text-mutedLight dark:text-text-mutedDark space-y-1">
               <div className="flex justify-between">
-                <span>Confidence Metric:</span>
-                <span className="font-semibold text-slate-700 dark:text-slate-200">
+                <span>Confidence Likelihood:</span>
+                <span className="font-semibold text-text-mainLight dark:text-text-mainDark">
                   {(probability * 100).toFixed(1)}% class likelihood
                 </span>
               </div>
               <div className="flex justify-between">
                 <span>Model Architecture:</span>
-                <span className="font-semibold text-slate-700 dark:text-slate-200">
+                <span className="font-semibold text-text-mainLight dark:text-text-mainDark">
                   100-Tree Balanced Random Forest
                 </span>
               </div>
@@ -139,11 +142,11 @@ export default function ResultScreen({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-6 mt-6 border-t border-cardio-maroon/10 dark:border-white/10">
+          <div className="flex flex-col sm:flex-row gap-3 pt-6 mt-6 border-t border-primary/15 dark:border-white/10">
             <button
               type="button"
               onClick={onReevaluate}
-              className="flex-1 py-3.5 neu-btn text-slate-700 dark:text-slate-200 font-bold text-sm rounded-2xl flex items-center justify-center gap-2"
+              className="flex-1 py-3.5 neu-btn text-text-mainLight dark:text-text-mainDark font-bold text-sm rounded-2xl flex items-center justify-center gap-2"
             >
               <RefreshCw size={17} />
               <span>Modify Data / Re-evaluate</span>
@@ -153,7 +156,7 @@ export default function ResultScreen({
               type="button"
               onClick={handleDownload}
               disabled={isDownloading}
-              className="flex-1 py-3.5 btn-crimson-cta text-white font-bold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-liquid-glow"
+              className="flex-1 py-3.5 btn-gradient-cta text-white font-bold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-glow-primary"
             >
               {isDownloading ? (
                 <>
@@ -162,7 +165,7 @@ export default function ResultScreen({
                 </>
               ) : downloadSuccess ? (
                 <>
-                  <Check size={17} className="text-green-300" />
+                  <Check size={17} className="text-risk-low" />
                   <span>Report Downloaded!</span>
                 </>
               ) : (
